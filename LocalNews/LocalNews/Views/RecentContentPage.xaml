@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LocalNews.Views.RecentContentPage"
+             Title="{Binding Title}">
+
+
+
+
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="Hola" 
+             Command="{Binding SearchButtonCommand}" 
+             Icon ="{Binding Icon}"/>
+    </ContentPage.ToolbarItems>-->
+
+    <StackLayout Spacing="5">
+
+
+
+
+        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="FillAndExpand" 
+                        IsVisible="{Binding IsVisibleWaitAbsoluteLayout}">
+            <BoxView Color="LightGray" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" />
+            <!--<Label TextColor="Black" Text="Please wait" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold" IsVisible="{Binding IsRunning}"/>-->
+            <StackLayout Padding="6" Orientation="Horizontal" BackgroundColor="LightGray" 
+                         AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" 
+                         AbsoluteLayout.LayoutFlags="PositionProportional">
+                <ActivityIndicator Color="Chocolate" 
+                                   VerticalOptions="Center" 
+                                   WidthRequest="30" 
+                                   HeightRequest="30" 
+                                   IsVisible="{Binding IsVisibleWaitIndicator}"
+                                   IsRunning="true" />
+                <Label TextColor="Chocolate" Text="{Binding LabelInformation}" VerticalOptions="Center" Font="12" FontAttributes="Bold"/>
+            </StackLayout>
+        </AbsoluteLayout>
+
+        <!--<SearchBar Text="{Binding SearchBarValue}" 
+               Margin="1" 
+               Placeholder="Search"   
+               IsVisible="{Binding IsVisibleSearchBar}" >
+            <SearchBar.Behaviors>
+                <control:SearchBarFocusBehavior OnFocus="{Binding IsVisibleSearchBar}" />
+            </SearchBar.Behaviors>
+        </SearchBar>-->
+
+
+        <ListView 
+             ItemsSource="{Binding SourcesLocalDataList}"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}"
+             CachingStrategy="RecycleElement"
+             SelectedItem="{Binding SelectedSources}" 
+             IsVisible="{Binding IsNotRunning}"
+             HasUnevenRows = "True"
+            SeparatorColor="Green" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <!--<ViewCell.ContextActions>
+                            <MenuItem  Text="Open" Command="{Binding ExecuteCommand}" CommandParameter="1"/>
+                            <MenuItem  Text="d" Command="{Binding CmdRemoveItemSelected}"  CommandParameter="2"
+                                       Icon="ic_action_delete.png"/>
+                        </ViewCell.ContextActions>-->
+                        <!--<Image Source="{Binding Url}" Margin="10,0" HeightRequest="60"></Image>-->
+                        <StackLayout  Margin="15">
+                            <Label Text="{Binding Name}"
+                                 Font="15" FontAttributes="Bold"/>
+                            <Label Text="{Binding Description}"  />
+                            <Label Text="{Binding OpenedDate}"/>
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped" 
+                                          Command="{Binding ExecuteCommand}" />
+            </ListView.Behaviors>
+
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

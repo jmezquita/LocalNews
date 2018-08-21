@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="LocalNews.Views.LanguageContentPage"
+             Title="{Binding Title}">
+
+
+    <StackLayout >
+        <ListView 
+             ItemsSource="{Binding LanguageFullList}"
+             CachingStrategy="RecycleElement"
+             SelectedItem="{Binding SelectedItem}" 
+             HasUnevenRows = "True"
+            SeparatorColor="Green" >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout  Margin="15">
+                            <Label Text="{Binding Name}"
+                                 Font="15" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped" 
+                                          Command="{Binding ExecuteCommand}" />
+            </ListView.Behaviors>
+
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

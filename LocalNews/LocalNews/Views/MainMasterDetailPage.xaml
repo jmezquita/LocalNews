@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  x:Class="LocalNews.Views.MainMasterDetailPage"
+                    Title="{Binding Title}">
+
+    
+
+    <MasterDetailPage.Master>
+        <!--<ContentPage Title="Menu" BackgroundColor="White">
+            <StackLayout Padding="20">
+                --><!-- TODO: // Update the Layout and add some real menu items  --><!--
+
+                <Button Text="Local News" Command="{Binding OnNavigateCommand}" CommandParameter="ViewA" />
+                <Button Text="All Sources" Command="{Binding OnNavigateCommand}" CommandParameter="/MainMasterDetailPage/NavigationPage/SourcesTabbedPage" />
+                <Button Text="Sources by Country" Command="{Binding OnNavigateCommand}" CommandParameter="/MainMasterDetailPage/NavigationPage/CountryContentPage" />
+                <Button Text="Sources by Category" Command="{Binding OnNavigateCommand}" CommandParameter="/MainMasterDetailPage/NavigationPage/CategoryContentPage" />
+                <Button Text="Sources by language" Command="{Binding OnNavigateCommand}" CommandParameter="/MainMasterDetailPage/NavigationPage/LanguageContentPage" />
+
+            </StackLayout>
+        </ContentPage>-->
+
+        <ContentPage 
+            Title="Menú"
+            BackgroundColor="LightBlue"
+            Padding="0,40,0,0">
+
+            
+            
+            <StackLayout>
+                <StackLayout>
+                    <Image Source="ic_launcher" HorizontalOptions="Center" WidthRequest="100" HeightRequest="100" ></Image>
+                    <Label Text="Local News" Font="15" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                    
+                </StackLayout>
+                <ListView BackgroundColor="WhiteSmoke"
+                      ItemsSource="{Binding MenuList}"
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows = "True"
+                      SelectedItem="{Binding ItemSelected}"
+                      SeparatorColor="Green">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Spacing="5">
+                                    <StackLayout  Orientation="Horizontal">
+                                        <Image Source="{Binding Icon}" Margin="10,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start"></Image>
+                                        <Label Text="{Binding Name}" HorizontalOptions="Start" VerticalOptions="Center"
+                                        FontAttributes="Bold" Margin="5,0"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+                    <ListView.Behaviors>
+                        <b:EventToCommandBehavior EventName="ItemTapped" 
+                                          Command="{Binding ExecuteCommand}" />
+                    </ListView.Behaviors>
+                </ListView>
+                
+            </StackLayout>
+
+            <!--<ContentPage.Padding >
+            <OnPlatform x:TypeArguments="Thickness" iOS=" 0 , 20 , 0 , 0" />
+        </ContentPage.Padding>-->
+        <!--<ContentPage.Content>
+            <StackLayout BackgroundColor="White" >
+                <Button Text="Login" BackgroundColor="White" BorderWidth="0" BorderColor="White"  TextColor="DarkGray" HorizontalOptions="FillAndExpand" Command="{Binding GoHomeCommand}" />
+                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
+                <Button Text="Search" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding GoSecondCommand}" />
+                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
+                <Button Text="Browse" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding GoThirdCommand}"/>
+                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
+            </StackLayout>
+        </ContentPage.Content>-->
+
+
+           
+
+
+        </ContentPage>
+    </MasterDetailPage.Master>
+    
+</MasterDetailPage>
